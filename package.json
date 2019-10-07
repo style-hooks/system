@@ -32,7 +32,6 @@
     "jest": "latest",
     "lint-staged": "latest",
     "prettier": "latest",
-    "pretty-quick": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-test-renderer": "latest",
@@ -58,10 +57,10 @@
   "lint-staged": {
     "src/**/*.js": [
       "eslint",
-      "pretty-quick --staged"
+      "prettier --write"
     ],
     "**/*.{md,yml}": [
-      "pretty-quick --staged"
+      "prettier --write"
     ]
   },
   "homepage": "https://github.com/jaredLunde/system#readme",
