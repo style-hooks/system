@@ -11,7 +11,8 @@
         },
         "typescript": false
       }
-    ]
+    ],
+    ["@emotion/css-prop", {"sourceMap": false, "hoist": true, "autoLabel":  false}]
   ],
   "env": {
     "es": {

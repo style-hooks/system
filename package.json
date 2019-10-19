@@ -1,23 +1,57 @@
 {
-  "name": "system",
+  "name": "@style-hooks/system",
   "version": "1.0.0",
+  "homepage": "https://github.com/style-hooks/system#readme",
+  "repository": "github:style-hooks/system",
+  "bugs": "https://github.com/style-hooks/system/issues",
   "author": "Jared Lunde <jared@BeStellar.co> (https://jaredLunde.com)",
   "license": "MIT",
+  "description": "A library for creating design systems with style-hooks",
+  "keywords": [
+    "react",
+    "react component",
+    "design system",
+    "style system",
+    "style hooks",
+    "css in js",
+    "emotion",
+    "styled components"
+  ],
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
   "files": [
     "/dist"
   ],
-  "description": "A library for creating design systems with style-hooks",
-  "keywords": [
-    "react",
-    "react component",
-    "system"
-  ],
   "sideEffects": false,
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:es",
+    "build:cjs": "babel src -d dist/cjs -x .js --ignore \"**/*.test.js\",\"**/test.js\" --delete-dir-on-start",
+    "build:es": "cross-env BABEL_ENV=es babel src -d dist/es -x .js --ignore \"**/*.test.js\",\"**/test.js\" --delete-dir-on-start",
+    "format": "prettier --write \"**/*.{js,jsx,yml,md}\"",
+    "lint": "eslint .",
+    "prepublishOnly": "npm run lint && npm run test && npm run build && npm run format",
+    "test": "jest",
+    "validate": "npm run lint && npm run test -- --coverage"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "eslint",
+      "prettier --write"
+    ],
+    "**/*.{md,yml,json,babelrc,eslintrc,prettierrc}": [
+      "prettier --write"
+    ]
+  },
   "devDependencies": {
     "@babel/preset-react": "latest",
+    "@emotion/core": "^10.0.21",
     "@lunde/babel-preset-es": "latest",
+    "@style-hooks/core": "^2.0.4",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/react-hooks": "latest",
@@ -32,43 +66,19 @@
     "jest": "latest",
     "lint-staged": "latest",
     "prettier": "latest",
-    "react": "latest",
+    "react": "^16.10.2",
     "react-dom": "latest",
     "react-test-renderer": "latest",
     "rimraf": "^2.6.3"
   },
-  "dependencies": {},
-  "peerDependencies": {},
-  "scripts": {
-    "build": "npm run build:cjs && npm run build:es",
-    "build:cjs": "babel src -d dist/cjs -x .js --ignore \"**/*.test.js\",\"**/test.js\" --delete-dir-on-start",
-    "build:es": "cross-env BABEL_ENV=es babel src -d dist/es -x .js  --ignore \"**/*.test.js\",\"**/test.js\" --delete-dir-on-start",
-    "format": "prettier --write \"**/*.{js,jsx,yml,md}\"",
-    "lint": "eslint src",
-    "prepublishOnly": "npm run lint && npm run test && npm run build && npm run format",
-    "test": "jest",
-    "validate": "npm run lint && npm run test -- --coverage"
+  "dependencies": {
+    "@emotion/babel-preset-css-prop": "^10.0.17",
+    "trie-memoize": "^1.0.15",
+    "use-memo-one": "^1.1.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.js": [
-      "eslint",
-      "prettier --write"
-    ],
-    "**/*.{md,yml}": [
-      "prettier --write"
-    ]
-  },
-  "homepage": "https://github.com/jaredLunde/system#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jaredLunde/system.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jaredLunde/system/issues"
+  "peerDependencies": {
+    "@emotion/core": "^10.0.21",
+    "@style-hooks/core": "^2.0.4",
+    "prop-types": "^15.7.2"
   }
 }
