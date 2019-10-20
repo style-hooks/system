@@ -23,7 +23,7 @@ export const unitless = value =>
   typeof value === 'string' && value.indexOf('.') > -1
     ? parseFloat(value)
     : parseInt(value)
-const defaultScaleValue = memoize([WeakMap, Map], (scale, value) =>
+export const scaleValue = memoize([WeakMap, Map], (scale, value) =>
   value === void 0 || value === null || value === true
     ? scale[Object.keys(scale)[0]]
     : scale[value]
@@ -69,28 +69,30 @@ const system = {
     }),
 
   font: v => (t, p) => {
-    const font = defaultScaleValue(t.fonts, v)
+    const font = scaleValue(t.fonts, v)
     return typeof font === 'function' ? font(t, p) : font
   },
 
-  bg:  v => (t, p) => {
-    const bg = defaultScaleValue(t.bgs, v)
-    return typeof bg === 'function' ? bg(t, p) : bg
-  },
+  fontColor: v =>
+    memo(
+      t => css`
+        color: ${t.colors[v] || v};
+      `
+    ),
 
   pad: function() {
     const pads = [].slice.call(arguments)
     return memo(
       t => css`
         padding: ${pads.length === 0
-          ? defaultScaleValue(t.padScale)
+          ? scaleValue(t.padScale)
           : pads
               .map(v =>
                 v === 'auto'
                   ? 'auto'
                   : String(v) === '0'
                   ? 0
-                  : defaultScaleValue(t.padScale, v)
+                  : scaleValue(t.padScale, v)
               )
               .join(' ')};
       `
@@ -99,39 +101,39 @@ const system = {
   padTop: v =>
     memo(
       t => css`
-        padding-top: ${defaultScaleValue(t.padScale, v)};
+        padding-top: ${scaleValue(t.padScale, v)};
       `
     ),
   padRight: v =>
     memo(
       t => css`
-        padding-right: ${defaultScaleValue(t.padScale, v)};
+        padding-right: ${scaleValue(t.padScale, v)};
       `
     ),
   padBottom: v =>
     memo(
       t => css`
-        padding-bottom: ${defaultScaleValue(t.padScale, v)};
+        padding-bottom: ${scaleValue(t.padScale, v)};
       `
     ),
   padLeft: v =>
     memo(
       t => css`
-        padding-left: ${defaultScaleValue(t.padScale, v)};
+        padding-left: ${scaleValue(t.padScale, v)};
       `
     ),
   padX: v =>
     memo(
       t => css`
-        padding-right: ${defaultScaleValue(t.padScale, v)};
-        padding-left: ${defaultScaleValue(t.padScale, v)};
+        padding-right: ${scaleValue(t.padScale, v)};
+        padding-left: ${scaleValue(t.padScale, v)};
       `
     ),
   padY: v =>
     memo(
       t => css`
-        padding-top: ${defaultScaleValue(t.padScale, v)};
-        padding-bottom: ${defaultScaleValue(t.padScale, v)};
+        padding-top: ${scaleValue(t.padScale, v)};
+        padding-bottom: ${scaleValue(t.padScale, v)};
       `
     ),
 
@@ -140,14 +142,14 @@ const system = {
     return memo(
       t => css`
         margin: ${gaps.length === 0
-          ? defaultScaleValue(t.gapScale)
+          ? scaleValue(t.gapScale)
           : gaps
               .map(v =>
                 v === 'auto'
                   ? 'auto'
                   : String(v) === '0'
                   ? 0
-                  : defaultScaleValue(t.gapScale, v)
+                  : scaleValue(t.gapScale, v)
               )
               .join(' ')};
       `
@@ -156,39 +158,39 @@ const system = {
   gapTop: v =>
     memo(
       t => css`
-        margin-top: ${defaultScaleValue(t.gapScale, v)};
+        margin-top: ${scaleValue(t.gapScale, v)};
       `
     ),
   gapRight: v =>
     memo(
       t => css`
-        margin-right: ${defaultScaleValue(t.gapScale, v)};
+        margin-right: ${scaleValue(t.gapScale, v)};
       `
     ),
   gapBottom: v =>
     memo(
       t => css`
-        margin-bottom: ${defaultScaleValue(t.gapScale, v)};
+        margin-bottom: ${scaleValue(t.gapScale, v)};
       `
     ),
   gapLeft: v =>
     memo(
       t => css`
-        margin-left: ${defaultScaleValue(t.gapScale, v)};
+        margin-left: ${scaleValue(t.gapScale, v)};
       `
     ),
   gapX: v =>
     memo(
       t => css`
-        margin-right: ${defaultScaleValue(t.gapScale, v)};
-        margin-left: ${defaultScaleValue(t.gapScale, v)};
+        margin-right: ${scaleValue(t.gapScale, v)};
+        margin-left: ${scaleValue(t.gapScale, v)};
       `
     ),
   gapY: v =>
     memo(
       t => css`
-        margin-top: ${defaultScaleValue(t.gapScale, v)};
-        margin-bottom: ${defaultScaleValue(t.gapScale, v)};
+        margin-top: ${scaleValue(t.gapScale, v)};
+        margin-bottom: ${scaleValue(t.gapScale, v)};
       `
     ),
 
@@ -198,14 +200,14 @@ const system = {
       t =>
         css`
           border-radius: ${radii.length === 0
-            ? defaultScaleValue(t.radiusScale)
+            ? scaleValue(t.radiusScale)
             : radii
                 .map(v =>
                   v === 'auto'
                     ? 'auto'
                     : String(v) === '0'
                     ? 0
-                    : defaultScaleValue(t.radiusScale, v)
+                    : scaleValue(t.radiusScale, v)
                 )
                 .join(' ')};
         `
@@ -214,58 +216,58 @@ const system = {
   radiusTopLeft: v =>
     memo(
       t => css`
-        border-top-left-radius: ${defaultScaleValue(t.radiusScale, v)};
+        border-top-left-radius: ${scaleValue(t.radiusScale, v)};
       `
     ),
   radiusTop: v =>
     memo(
       t => css`
-        border-top-left-radius: ${defaultScaleValue(t.radiusScale, v)};
-        border-top-right-radius: ${defaultScaleValue(t.radiusScale, v)};
+        border-top-left-radius: ${scaleValue(t.radiusScale, v)};
+        border-top-right-radius: ${scaleValue(t.radiusScale, v)};
       `
     ),
   radiusTopRight: v =>
     memo(
       t => css`
-        border-top-right-radius: ${defaultScaleValue(t.radiusScale, v)};
+        border-top-right-radius: ${scaleValue(t.radiusScale, v)};
       `
     ),
   radiusRight: v =>
     memo(
       t => css`
-        border-top-right-radius: ${defaultScaleValue(t.radiusScale, v)};
-        border-bottom-right-radius: ${defaultScaleValue(t.radiusScale, v)};
+        border-top-right-radius: ${scaleValue(t.radiusScale, v)};
+        border-bottom-right-radius: ${scaleValue(t.radiusScale, v)};
       `
     ),
   radiusBottomRight: v =>
     memo(
       t => css`
-        border-bottom-right-radius: ${defaultScaleValue(t.radiusScale, v)};
+        border-bottom-right-radius: ${scaleValue(t.radiusScale, v)};
       `
     ),
   radiusBottom: v =>
     memo(
       t => css`
-        border-bottom-right-radius: ${defaultScaleValue(t.radiusScale, v)};
-        border-bottom-left-radius: ${defaultScaleValue(t.radiusScale, v)};
+        border-bottom-right-radius: ${scaleValue(t.radiusScale, v)};
+        border-bottom-left-radius: ${scaleValue(t.radiusScale, v)};
       `
     ),
   radiusBottomLeft: v =>
     memo(
       t => css`
-        border-bottom-left-radius: ${defaultScaleValue(t.radiusScale, v)};
+        border-bottom-left-radius: ${scaleValue(t.radiusScale, v)};
       `
     ),
   radiusLeft: v =>
     memo(
       t => css`
-        border-top-left-radius: ${defaultScaleValue(t.radiusScale, v)};
-        border-bottom-left-radius: ${defaultScaleValue(t.radiusScale, v)};
+        border-top-left-radius: ${scaleValue(t.radiusScale, v)};
+        border-bottom-left-radius: ${scaleValue(t.radiusScale, v)};
       `
     ),
 
   shadow: v => (t, p) => {
-    const shadow = defaultScaleValue(t.shadows, v)
+    const shadow = scaleValue(t.shadows, v)
     return typeof shadow === 'function' ? shadow(t, p) : shadow
   },
 
@@ -295,14 +297,8 @@ export const usePad = createStyleHook(connectSystem('pad'))
 export const useSpace = props => useGap(usePad(props))
 export const useRadius = createStyleHook(connectSystem('radius'))
 export const useShadow = createStyleHook(connectSystem('shadow'))
-export const useBg = createStyleHook(connectSystem('bg'))
 export const useFont = createStyleHook(
   Object.assign(connectSystem('font'), {
-    fontColor: memoTheme(
-      (value, theme) => css`
-        color: ${theme.colors[value] || value};
-      `
-    ),
     fontWeight: memoValue(
       value => css`
         font-weight: ${value};
@@ -421,6 +417,101 @@ export const resets = css`
 `
 
 export const BrowserResets = () => <Global styles={resets} />
+export const defaultTheme = {
+  defaultUnit: 'px',
+  colors: {
+    primaryText: '#364045',
+    accentText: '#778c95',
+
+    lightShade: '#F5F2F5',
+    lightAccent: '#87B3EB',
+
+    primary: '#22A2DC',
+    darkAccent: '#848592',
+    darkShade: '#2F4984',
+
+    border: 'rgba(0,0,0,0.16)',
+    overlay: 'rgba(0,0,0,0.7)',
+  },
+  cols: 12,
+
+  fonts: {
+    body: css`
+      font: 400 1.125rem/1.4 sans-serif;
+    `,
+    'body.sm': css`
+      font: 400 1rem/1.4 sans-serif;
+    `,
+    title: css`
+      font: 300 3rem/1.4 sans-serif;
+    `,
+    'title.sm': css`
+      font: 300 2.33rem/1.4 sans-serif;
+    `,
+    subtitle: css`
+      font: 400 1.67rem/1.4 sans-serif;
+    `,
+    'subtitle.sm': css`
+      font: 400 1.5rem/1.4 sans-serif;
+    `,
+    caption: css`
+      font: 700 0.75rem/1 sans-serif;
+      text-transform: uppercase;
+    `,
+  },
+
+  gapScale: {
+    lg: `${16 / 16}rem`,
+    xxs: `${1 / 16}rem`,
+    xs: `${2 / 16}rem`,
+    sm: `${4 / 16}rem`,
+    md: `${8 / 16}rem`,
+    xl: `${32 / 16}rem`,
+    xxl: `${64 / 16}rem`,
+  },
+
+  padScale: {
+    md: `${16 / 16}rem`,
+    xs: `${4 / 16}rem`,
+    sm: `${8 / 16}rem`,
+    lg: `${32 / 16}rem`,
+    xl: `${64 / 16}rem`,
+  },
+
+  radiusScale: {
+    md: '8px',
+    xs: '2px',
+    sm: '4px',
+    lg: '16px',
+    xl: '32px',
+    max: '10000px',
+  },
+
+  shadows: {
+    xs: css`
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    `,
+    sm: css`
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    `,
+    md: css`
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    `,
+    lg: css`
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    `,
+    xl: css`
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    `,
+    inner: css`
+      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    `,
+  },
+}
 
 //
 // Theming
@@ -428,79 +519,7 @@ export const SystemProvider = ({theme: userTheme, children}) => {
   const higherOrderTheme = useTheme()
   const systemTheme = useMemo(() => {
     const systemTheme = Object.assign(
-      {
-        defaultUnit: 'px',
-        colors: {},
-        cols: 12,
-
-        bgs: {
-          body: '',
-          primary: '',
-          accent: '',
-        },
-
-        fonts: {
-          body: () => css``,
-          'body.sm': () => css``,
-          title: () => css``,
-          'title.sm': () => css``,
-          subtitle: () => css``,
-          'subtitle.sm': () => css``,
-          caption: () => css``,
-        },
-
-        gapScale: {
-          lg: `${16 / 16}rem`,
-          xxs: `${1 / 16}rem`,
-          xs: `${2 / 16}rem`,
-          sm: `${4 / 16}rem`,
-          md: `${8 / 16}rem`,
-          xl: `${32 / 16}rem`,
-          xxl: `${64 / 16}rem`,
-        },
-
-        padScale: {
-          md: `${16 / 16}rem`,
-          xs: `${4 / 16}rem`,
-          sm: `${8 / 16}rem`,
-          lg: `${32 / 16}rem`,
-          xl: `${64 / 16}rem`,
-        },
-
-        radiusScale: {
-          md: '8px',
-          xs: '2px',
-          sm: '4px',
-          lg: '16px',
-          xl: '32px',
-          max: '10000px',
-        },
-
-        shadows: {
-          xs: css`
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-              0 1px 2px 0 rgba(0, 0, 0, 0.06);
-          `,
-          sm: css`
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-              0 2px 4px -1px rgba(0, 0, 0, 0.06);
-          `,
-          md: css`
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-              0 4px 6px -2px rgba(0, 0, 0, 0.05);
-          `,
-          lg: css`
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-              0 10px 10px -5px rgba(0, 0, 0, 0.04);
-          `,
-          xl: css`
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-          `,
-          inner: css`
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-          `,
-        },
-      },
+      defaultTheme,
       mergeTheme(createTheme(higherOrderTheme), userTheme)
     )
 

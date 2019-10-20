@@ -1,12 +1,12 @@
 {
   "name": "@style-hooks/system",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "homepage": "https://github.com/style-hooks/system#readme",
   "repository": "github:style-hooks/system",
   "bugs": "https://github.com/style-hooks/system/issues",
   "author": "Jared Lunde <jared@BeStellar.co> (https://jaredLunde.com)",
   "license": "MIT",
-  "description": "A library for creating design systems with style-hooks",
+  "description": "A library for creating design systems with @style-hooks/core",
   "keywords": [
     "react",
     "react component",
@@ -48,9 +48,9 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-react": "latest",
+    "@emotion/babel-preset-css-prop": "^10.0.17",
     "@emotion/core": "^10.0.21",
-    "@lunde/babel-preset-es": "latest",
+    "@style-hooks/babel-preset-es": "^1.0.3",
     "@style-hooks/core": "^2.0.4",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
@@ -72,13 +72,13 @@
     "rimraf": "^2.6.3"
   },
   "dependencies": {
-    "@emotion/babel-preset-css-prop": "^10.0.17",
     "trie-memoize": "^1.0.15",
     "use-memo-one": "^1.1.1"
   },
   "peerDependencies": {
-    "@emotion/core": "^10.0.21",
-    "@style-hooks/core": "^2.0.4",
-    "prop-types": "^15.7.2"
+    "@emotion/core": ">=10",
+    "@style-hooks/core": ">=2",
+    "prop-types": ">=15.6",
+    "react": ">=16.8"
   }
 }
