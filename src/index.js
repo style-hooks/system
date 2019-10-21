@@ -437,25 +437,39 @@ export const defaultTheme = {
 
   fonts: {
     body: css`
-      font: 400 1.125rem/1.4 sans-serif;
+      font-weight: 400;
+      font-size: 1.125rem;
+      line-height: 1.4;
     `,
     'body.sm': css`
-      font: 400 1rem/1.4 sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.4;
     `,
     title: css`
-      font: 300 3rem/1.4 sans-serif;
+      font-weight: 300;
+      font-size: 3rem;
+      line-height: 1.4;
     `,
     'title.sm': css`
-      font: 300 2.33rem/1.4 sans-serif;
+      font-weight: 300;
+      font-size: 2.333rem;
+      line-height: 1.4;
     `,
     subtitle: css`
-      font: 400 1.67rem/1.4 sans-serif;
+      font-weight: 400;
+      font-size: 1.667rem;
+      line-height: 1.4;
     `,
     'subtitle.sm': css`
-      font: 400 1.5rem/1.4 sans-serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.4;
     `,
     caption: css`
-      font: 700 0.75rem/1 sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      line-height: 1.4;
       text-transform: uppercase;
     `,
   },
