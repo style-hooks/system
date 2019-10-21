@@ -440,36 +440,43 @@ export const defaultTheme = {
       font-weight: 400;
       font-size: 1.125rem;
       line-height: 1.4;
+      letter-spacing: -0.0125em;
     `,
     'body.sm': css`
       font-weight: 400;
       font-size: 1rem;
       line-height: 1.4;
+      letter-spacing: -0.0125em;
     `,
     title: css`
       font-weight: 300;
       font-size: 3rem;
       line-height: 1.4;
+      letter-spacing: -0.05em;
     `,
     'title.sm': css`
       font-weight: 300;
       font-size: 2.333rem;
+      letter-spacing: -0.05em;
       line-height: 1.4;
     `,
     subtitle: css`
       font-weight: 400;
       font-size: 1.667rem;
+      letter-spacing: -0.0333em;
       line-height: 1.4;
     `,
     'subtitle.sm': css`
       font-weight: 400;
       font-size: 1.5rem;
+      letter-spacing: -0.0333em;
       line-height: 1.4;
     `,
     caption: css`
       font-weight: 700;
       font-size: 0.75rem;
       line-height: 1.4;
+      letter-spacing: -0.0125em;
       text-transform: uppercase;
     `,
   },
