@@ -23,7 +23,8 @@
     "no-prototype-builtins": "off",
     "react/no-children-prop": "off",
     "react/display-name": "off",
-    "react/prop-types": [2, {"ignore": ["children"]}]
+    "react/prop-types": [2, {"ignore": ["children"]}],
+    "react/no-unescaped-entities": "off"
   },
   "settings": {
     "react": {

@@ -1,6 +1,6 @@
 {
   "name": "@style-hooks/system",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "homepage": "https://github.com/style-hooks/system#readme",
   "repository": "github:style-hooks/system",
   "bugs": "https://github.com/style-hooks/system/issues",
@@ -20,13 +20,15 @@
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
   "files": [
-    "/dist"
+    "/dist",
+    "/preview"
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "npm run build:cjs && npm run build:es",
+    "build": "npm run build:cjs && npm run build:es && npm run build:preview",
     "build:cjs": "babel src -d dist/cjs -x .js --ignore \"**/*.test.js\",\"**/test.js\" --delete-dir-on-start",
     "build:es": "cross-env BABEL_ENV=es babel src -d dist/es -x .js --ignore \"**/*.test.js\",\"**/test.js\" --delete-dir-on-start",
+    "build:preview": "babel preview-src -d preview -x .js --ignore \"**/*.test.js\",\"**/test.js\" --delete-dir-on-start",
     "format": "prettier --write \"**/*.{js,jsx,yml,md}\"",
     "lint": "eslint .",
     "prepublishOnly": "npm run lint && npm run test && npm run build && npm run format",
@@ -55,6 +57,7 @@
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/react-hooks": "latest",
+    "add": "^2.0.6",
     "babel-eslint": "latest",
     "cross-env": "latest",
     "eslint": "latest",
@@ -65,11 +68,13 @@
     "husky": "latest",
     "jest": "latest",
     "lint-staged": "latest",
+    "minify-css.macro": "^1.0.0",
     "prettier": "latest",
     "react": "^16.10.2",
     "react-dom": "latest",
     "react-test-renderer": "latest",
-    "rimraf": "^2.6.3"
+    "rimraf": "^2.6.3",
+    "yarn": "^1.19.1"
   },
   "dependencies": {
     "trie-memoize": "^1.0.15",
