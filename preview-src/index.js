@@ -18,7 +18,6 @@ const section = ({system}) => cleanCss`
   ${system.padX()}
   ${system.gapY()}
   width: 100%;
-  background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.12);
   ${system.radius()}
 `
@@ -125,6 +124,34 @@ const Previews = () => {
 
       <Section title="Gap scale">
         {Object.keys(theme.gapScale).map(label => (
+          <div key={label} css={fontBox(label)}>
+            <div>"{label}"</div>
+            <div>Sphinx of black quartz, judge my vow</div>
+          </div>
+        ))}
+      </Section>
+
+      <Section title="Shadows">
+        {Object.keys(theme.shadows).map(label => (
+          <div key={label} css={fontBox(label)}>
+            <div>"{label}"</div>
+            <div>Sphinx of black quartz, judge my vow</div>
+          </div>
+        ))}
+      </Section>
+
+
+      <Section title="Radius scale">
+        {Object.keys(theme.radiusScale).map(label => (
+          <div key={label} css={fontBox(label)}>
+            <div>"{label}"</div>
+            <div>Sphinx of black quartz, judge my vow</div>
+          </div>
+        ))}
+      </Section>
+
+      <Section title="Shadows">
+        {Object.keys(theme.shadows).map(label => (
           <div key={label} css={fontBox(label)}>
             <div>"{label}"</div>
             <div>Sphinx of black quartz, judge my vow</div>
