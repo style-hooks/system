@@ -140,7 +140,6 @@ const Previews = () => {
         ))}
       </Section>
 
-
       <Section title="Radius scale">
         {Object.keys(theme.radiusScale).map(label => (
           <div key={label} css={fontBox(label)}>
